@@ -56,6 +56,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuRelatorioActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemRelatorioPlaylist">
               <Properties>
@@ -63,6 +66,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRelatorioPlaylistActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemPlaylistsRelatorio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Playlists"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemPlaylistsRelatorioActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

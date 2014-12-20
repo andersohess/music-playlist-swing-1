@@ -6,6 +6,9 @@
 package br.com.dbs.java.mps.view;
 
 import br.com.dbs.java.mps.controller.RelatorioController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -100,7 +103,11 @@ public class RelatorioDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gerarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarBtnActionPerformed
-        controller.gerarRelatorio(nomeTxt.getText());
+        try {
+            controller.gerarRelatorio(nomeTxt.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_gerarBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

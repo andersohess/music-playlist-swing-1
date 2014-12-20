@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio-playlists" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad4e6843-18ec-4adb-bf82-0cfcf5aac8de">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NOME_PLAYLIST" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     PLAYLIST."DURACAOTOTAL" AS PLAYLIST_DURACAOTOTAL,
+     PLAYLIST."NOME" AS PLAYLIST_NOME,
+     MUSICA."DURACAO" AS MUSICA_DURACAO,
+     MUSICA."NOME" AS MUSICA_NOME
+FROM
+     "PLAY"."PLAYLIST" PLAYLIST INNER JOIN "PLAY"."PLAYLIST_MUSICA" PLAYLIST_MUSICA ON PLAYLIST."ID" = PLAYLIST_MUSICA."PLAYLIST_ID"
+     INNER JOIN "PLAY"."MUSICA" MUSICA ON PLAYLIST_MUSICA."MUSICAS_ID" = MUSICA."ID"
+
+where  upper( PLAYLIST.NOME ) LIKE upper( $P{NOME_PLAYLIST})]]>
+	</queryString>
+	<field name="PLAYLIST_DURACAOTOTAL" class="java.lang.Integer"/>
+	<field name="PLAYLIST_NOME" class="java.lang.String"/>
+	<field name="MUSICA_DURACAO" class="java.lang.Integer"/>
+	<field name="MUSICA_NOME" class="java.lang.String"/>
+	<group name="PLAYLIST_NOME">
+		<groupExpression><![CDATA[$F{PLAYLIST_NOME}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement x="3" y="0" width="113" height="21" uuid="fbc18d89-7b0f-42c6-9cf1-0b4e7b8cbd7c"/>
+					<textFieldExpression><![CDATA[$F{PLAYLIST_NOME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="367" y="2" width="166" height="19" uuid="601f63a6-5e9a-4abd-ad6d-c2262c60d9dc"/>
+					<textFieldExpression><![CDATA[$F{PLAYLIST_DURACAOTOTAL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="3" y="0" width="552" height="79" forecolor="#99FF99" backcolor="#CCCCCC" uuid="abef93dc-e1d6-496d-a5ea-d2f029631e8e"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="179" y="36" width="207" height="28" forecolor="#FFFFFF" uuid="2209c177-7ea7-4cd1-8c16-6b5dfb8a54c8"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Playlists]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="5" width="161" height="30" uuid="2cef406d-9a6a-442e-b67e-bc14b94d466e"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Relatório de Playlists e Musicas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="100" height="20" uuid="0e87b1f8-94a7-4c26-9265-f4a28d6f3978"/>
+				<text><![CDATA[PLAYLIST_NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="1" width="100" height="20" uuid="fb499ab3-186f-4e65-a94f-642480be63ba"/>
+				<text><![CDATA[PLAYLIST_DURACAOTOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="0" width="100" height="20" uuid="fd1736a2-a424-45b8-b2ff-c47c9ac120da"/>
+				<textFieldExpression><![CDATA[$F{MUSICA_NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="0" width="123" height="20" uuid="1e069771-487f-4079-9f58-71bdc8972ad0"/>
+				<textFieldExpression><![CDATA[String.format("%02d:%02d",
+    ($F{MUSICA_DURACAO} / 60),($F{MUSICA_DURACAO}%60))]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
